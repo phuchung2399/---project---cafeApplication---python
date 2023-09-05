@@ -160,11 +160,11 @@ class SaleGUI(Frame):
         self.mode = Frame(self.panel2, width=350, height=150, bg="#FFFFFF")
         self.mode.pack(side="bottom", padx=10, pady=10)
 
-        self.btBuy = Button(self.mode, text="BUY", width=15, bg="#23a661", state="normal", command=self.buy)
+        self.btBuy = Button(self.mode, text="BUY", width=15, bg="#4D9EE0", state="normal", command=self.buy)
         self.btBuy.grid(row=0, column=0, padx=20, pady=10, ipady=4)
 
         self.detection = Detection(self.TextFieldsForm)
-        self.btDec = Button(self.mode, text="DETECTION", width=15, bg="#23a661", state="normal", command=self.dec)
+        self.btDec = Button(self.mode, text="DETECTION", width=15, bg="#4D9EE0", state="normal", command=self.dec)
         self.btDec.grid(row=0, column=1, padx=20, pady=10, ipady=4)
 
 

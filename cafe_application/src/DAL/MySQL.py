@@ -9,8 +9,8 @@ class MySQL:
         try:
             self.__connection = mysql.connector.connect(
                 host="localhost",
-                user="root",
-                password="123456",
+                user="bao",
+                password="bao123456",
                 database="cafe_management"
             )
             self.__cursor = self.__connection.cursor()
