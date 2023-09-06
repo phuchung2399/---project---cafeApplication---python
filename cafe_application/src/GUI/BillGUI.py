@@ -10,6 +10,12 @@ from BLL.StaffBLL import StaffBLL
 from detection.detection import Detection
 from DTO.Bill import Bill
 
+from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Alignment
+from openpyxl.styles import Border, Side
+import os
+
 
 class BillGUI(Frame):
     def __init__(self, parent):
@@ -121,7 +127,7 @@ class BillGUI(Frame):
         self.btRef.grid(row=1, column=0, padx=20, pady=10, ipady=4)
 
         self.detection = Detection(self.TextFieldsForm)
-        self.btDec = Button(self.mode, text="DETECTION", width=15, bg="#4D9EE0", state="normal", command=self.dec)
+        self.btDec = Button(self.mode, text="EXCEL", width=15, bg="#4D9EE0", state="normal", command=self.Export_EX)
         self.btDec.grid(row=1, column=1, padx=20, pady=10, ipady=4)
 
 
@@ -245,3 +251,46 @@ class BillGUI(Frame):
 
         self.btUpd.configure(state="disabled")
         self.btDel.configure(state="disabled")
+
+    def Export_EX(self):
+        workbook = Workbook()
+        sheet = workbook.active
+
+        border_style = Border(left=Side(border_style="thin", color="000000"),
+                              right=Side(border_style="thin", color="000000"),
+                              top=Side(border_style="thin", color="000000"),
+                              bottom=Side(border_style="thin", color="000000"))
+
+        sheet['A1'] = 'DANH SÁCH HÓA ĐƠN'
+        sheet.merge_cells('A1:E1')
+
+        for row in sheet.iter_rows(min_row=1, max_row=1):
+            for cell in row:
+                cell.alignment = Alignment(horizontal='center', vertical='center')
+
+
+        sheet['A2'] = 'Mã hóa đơn'
+        sheet['B2'] = 'Mã khách hàng'
+        sheet['C2'] = 'Mã nhân viên'
+        sheet['D2'] = 'Ngày xuất'
+        sheet['E2'] = 'Tổng tiền'
+        row_count = 2 + len(self.data)
+        for index,row in enumerate(self.data):
+            sheet['A' + str((index + 3))] = row[0]
+            sheet['B' + str((index + 3))] = row[1]
+            sheet['C' + str((index + 3))] = row[2]
+            sheet['D' + str((index + 3))] = row[3]
+            sheet['E' + str((index + 3))] = row[4]
+
+
+        for row in sheet.iter_rows(min_row=1, max_row=row_count):
+            for cell in row:
+                cell.alignment = Alignment(horizontal='center', vertical='center')
+                cell.border = border_style
+
+
+
+        # Lưu workbook vào một tệp Excel với đường dẫn
+        current_path = os.getcwd()
+        path = current_path + "/Hóa Đơn.xlsx"
+        workbook.save(path)
