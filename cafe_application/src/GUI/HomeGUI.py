@@ -83,37 +83,38 @@ class HomeGUI(Frame):
         self.fram_cate = Frame(self.west, bg="#4D9EE0", width=280, height=650)
         self.fram_cate.place(x=10, y=100)
 
-        self.cate = Frame(self.fram_cate, bg="#ffffff", width=260, height=630)
+        self.cate = Frame(self.fram_cate, bg="#ffffff", width=260, height=550)
         self.cate.place(x=10, y=10)
 
         self.panel = []
         self.panel.append(None)
-        for i in range(1, 15):
+        for i in range(1, 13):
             self.panel.append(Frame(self.cate, bg="#4D9EE0", width=250, height=40))
             self.panel[i].bind('<Button-1>', self.on_panel_click)
 
         self.label = []
         self.label.append(None)
-        self.label.append(Label(self.panel[1], text="Bán hàng", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[2], text="Sản phẩm", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[3], text="Loại sản phẩm", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[4], text="Công Thức", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[5], text="Nhập hàng", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[6], text="Hóa đơn", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[7], text="Nhà kho", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[8], text="Thống kê", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[9], text="Tài khoản", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[10], text="Nhân viên", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[11], text="Khách hàng", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[12], text="Giảm giá", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[13], text="Phân quyền", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
-        self.label.append(Label(self.panel[14], text="Nhà cung cấp", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[1], text="Bán hàng", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[2], text="Sản phẩm", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[3], text="Loại sản phẩm", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[4], text="Công Thức", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[5], text="Nhập hàng", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[6], text="Hóa đơn", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[7], text="Nhà kho", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        #self.label.append(Label(self.panel[8], text="Thống kê", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[8], text="Tài khoản", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[9], text="Nhân viên", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[10], text="Khách hàng", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        #self.label.append(Label(self.panel[12], text="Giảm giá", font=("Times New Roman", 15), fg="#ffffff", bg="#4D9EE0"))
+
+        self.label.append(Label(self.panel[11], text="Phân quyền", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
+        self.label.append(Label(self.panel[12], text="Nhà cung cấp", font=("Times New Roman", 16), fg="#ffffff", bg="#4D9EE0"))
 
         self.icon = []
         self.image = []
         self.icon.append(None)
         self.image.append(None)
-        for i in range(1, 14):
+        for i in range(1, 12):
             url = fr"cafe_application/img/icons/{i:02}.png"
             self.icon.append(ImageTk.PhotoImage(Image.open(url).resize((30, 30), Image.ANTIALIAS)))
             self.image.append(Label(self.panel[i], image=self.icon[i], bg="#4D9EE0"))
@@ -121,15 +122,16 @@ class HomeGUI(Frame):
         self.image.append(Label(self.panel[len(self.label)-1], image=self.icon[len(self.icon)-1], bg="#4D9EE0"))
         self.x = 5
         self.y = 5
-        for i in range(1, 15):
+        for i in range(1, 13):
             if self.__arr[i] != 0:
                 self.panel[i].place(x=self.x, y=self.y)
                 self.image[i].place(x=20, y=4)
                 self.label[i].place(x=70, y=5)
                 self.y = self.y + 45
 
-        for i in range(1, 15):
+        for i in range(1, 13):
             for child in self.panel[i].winfo_children():
+
                 child.bind('<Button-1>', self.on_childPanel_click)
 
         self.east = Frame(self.contentPane, bg="#4D9EE0", width=1040, height=740)
@@ -158,7 +160,7 @@ class HomeGUI(Frame):
             self.fram_cate.configure(bg="#135066")
             self.cate.configure(bg="#135066")
 
-            for i in range(1, 15):
+            for i in range(1, 13):
                 self.panel[i].configure(bg="#f0f0f0")
                 self.image[i].configure(bg="#f0f0f0")
                 self.label[i].configure(bg="#f0f0f0", fg="#000000")
@@ -180,7 +182,7 @@ class HomeGUI(Frame):
             self.fram_cate.configure(bg="#4D9EE0")
             self.cate.configure(bg="#ffffff")
 
-            for i in range(1, 15):
+            for i in range(1, 13):
                 self.panel[i].configure(bg="#4D9EE0")
                 self.image[i].configure(bg="#4D9EE0")
                 self.label[i].configure(bg="#4D9EE0", fg="#FFFFFF")
@@ -244,18 +246,14 @@ class HomeGUI(Frame):
         elif frame == self.panel[7]:
             self.openChildForm(IngredientGUI(self.function))
         elif frame == self.panel[8]:
-            pass
-        elif frame == self.panel[9]:
             self.openChildForm(AccountGUI(self.function))
-        elif frame == self.panel[10]:
+        elif frame == self.panel[9]:
             self.openChildForm(StaffGUI(self.function))
-        elif frame == self.panel[11]:
+        elif frame == self.panel[10]:
             self.openChildForm(CustomerGUI(self.function))
-        elif frame == self.panel[12]:
-            pass
-        elif frame == self.panel[13]:
+        elif frame == self.panel[11]:
             self.openChildForm(DecentralizationGUI(self.function))
-        elif frame == self.panel[14]:
+        elif frame == self.panel[12]:
             self.openChildForm(SupplierGUI(self.function))
 
 

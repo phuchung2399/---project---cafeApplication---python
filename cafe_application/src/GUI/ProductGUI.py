@@ -64,6 +64,7 @@ class ProductGUI(Frame):
                 self.TextFieldsForm[len(self.TextFieldsForm)-1].insert(0, self.productBLL.getAutoID())
                 self.TextFieldsForm[len(self.TextFieldsForm)-1].configure(state='readonly')
                 self.TextFieldsForm[len(self.TextFieldsForm)-1].grid(row=self.row, column=self.column, padx=20, pady=10, ipady=4)
+                self.labelForm[i].configure(text="Mã sản phẩm")
             elif self.columnNames[i] == "CATEGORY_ID":
                 self.cbbCategoryID = ttk.Combobox(self.pnlProductConfiguration, values=self.categoriesID, width=27)
                 self.cbbCategoryID.configure(state="readonly")
@@ -73,7 +74,7 @@ class ProductGUI(Frame):
                 self.cbbSized.configure(state="readonly")
                 self.cbbSized.grid(row=self.row, column=self.column, padx=20, pady=10, ipady=4)
             elif self.columnNames[i] == "IMAGE":
-                self.btChooseImg = Button(self.pnlProductConfiguration, text="Choose an image", width=25, bg="#AFD1DF", command=self.selectImage)
+                self.btChooseImg = Button(self.pnlProductConfiguration, text="Chọn hình ảnh", width=25, bg="#AFD1DF", command=self.selectImage)
                 self.btChooseImg.grid(row=self.row, column=self.column, padx=20, pady=10, ipady=4)
             else:
                 self.TextFieldsForm.append(Entry(self.pnlProductConfiguration, fg="#000000", bg="#ffffff", width=30))
@@ -89,16 +90,16 @@ class ProductGUI(Frame):
         self.mode = Frame(self.panel2, width=350, height=150, bg="#ffffff")
         self.mode.pack(side="bottom", padx=10, pady=10)
 
-        self.btAdd = Button(self.mode, text="ADD", width=15, bg="#4D9EE0", state="normal", command=self.add)
+        self.btAdd = Button(self.mode, text="THÊM", width=15, bg="#4D9EE0", state="normal", command=self.add)
         self.btAdd.grid(row=0, column=0, padx=20, pady=10, ipady=4)
 
-        self.btUpd = Button(self.mode, text="UPDATE", width=15, bg="#4D9EE0", state="disabled", command=self.upd)
+        self.btUpd = Button(self.mode, text="CẬP NHẬT", width=15, bg="#4D9EE0", state="disabled", command=self.upd)
         self.btUpd.grid(row=0, column=1, padx=20, pady=10, ipady=4)
 
-        self.btDel = Button(self.mode, text="DELETE", width=15, bg="#4D9EE0", state="disabled", command=self.dele)
+        self.btDel = Button(self.mode, text="XÓA", width=15, bg="#4D9EE0", state="disabled", command=self.dele)
         self.btDel.grid(row=1, column=0, padx=20, pady=10, ipady=4)
 
-        self.btRef = Button(self.mode, text="Refresh", width=15, bg="#4D9EE0", state="normal", command=self.ref)
+        self.btRef = Button(self.mode, text="TẢI LẠI", width=15, bg="#4D9EE0", state="normal", command=self.ref)
         self.btRef.grid(row=1, column=1, padx=20, pady=10, ipady=4)
 
 

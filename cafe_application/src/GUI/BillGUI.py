@@ -117,13 +117,13 @@ class BillGUI(Frame):
         self.mode = Frame(self.panel2, width=350, height=250, bg="#FFFFFF")
         self.mode.pack(side="bottom", padx=10, pady=10)
 
-        self.btUpd = Button(self.mode, text="UPDATE", width=15, bg="#4D9EE0", state="disabled", command=self.upd)
+        self.btUpd = Button(self.mode, text="CẬP NHẬT", width=15, bg="#4D9EE0", state="disabled", command=self.upd)
         self.btUpd.grid(row=0, column=0, padx=20, pady=10, ipady=4)
 
-        self.btDel = Button(self.mode, text="DELETE", width=15, bg="#4D9EE0", state="disabled", command=self.dele)
+        self.btDel = Button(self.mode, text="XÓA", width=15, bg="#4D9EE0", state="disabled", command=self.dele)
         self.btDel.grid(row=0, column=1, padx=20, pady=10, ipady=4)
 
-        self.btRef = Button(self.mode, text="Refresh", width=15, bg="#4D9EE0", state="normal", command=self.ref)
+        self.btRef = Button(self.mode, text="TẢI LẠI", width=15, bg="#4D9EE0", state="normal", command=self.ref)
         self.btRef.grid(row=1, column=0, padx=20, pady=10, ipady=4)
 
         self.detection = Detection(self.TextFieldsForm)

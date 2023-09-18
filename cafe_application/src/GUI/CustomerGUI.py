@@ -2,7 +2,7 @@ from datetime import datetime
 from threading import Thread
 from tkinter import *
 from tkinter import ttk
-
+from tkinter import messagebox
 from BLL.CustomerBLL import CustomerBLL
 from detection.detection import Detection
 from detection.record import Record
@@ -82,13 +82,21 @@ class CustomerGUI(Frame):
             self.row = self.row + 1
             self.column = 0
 
+
+        self.entry1 = Entry(self.search ,borderwidth=0, highlightthickness=1, highlightbackground="#CCCCCC",width=50)
+        self.entry1.pack(side="left",padx=50,pady=5)
+        self.entry1.insert(0, "Nhập mã khách hàng")
+        self.entry1.bind("<FocusIn>", self.clear_placeholder)
+
         self.detection = Detection(self.TextFieldsForm)
-        self.btDetection = Button(self.search, text="Tìm kiếm bằng gương mặt", width=25, bg="#AFD1DF", command=self.findByFace)
-        self.btDetection.pack(pady=5)
+        self.btDetection = Button(self.search, text="Tìm kiếm"
+                                  , width=25, bg="#AFD1DF", command=self.loadTableByID)
+        self.btDetection.pack(side="left",padx=10,pady=5)
 
 
         self.btRecord = Button(self.pnlCustomerConfiguration, text="Đăng ký gương mặt", width=25, bg="#AFD1DF", command=self.sinupFace, state="disabled")
         self.btRecord.grid(row=self.row, column=1, padx=20, pady=10, ipady=4)
+        self.btRecord.grid_forget()
 
         self.showImage = Frame(self.panel2, width=350, height=200, bg="#FFFFFF")
         self.showImage.pack(padx=10, pady=0)
@@ -96,16 +104,16 @@ class CustomerGUI(Frame):
         self.mode = Frame(self.panel2, width=350, height=150, bg="#ffffff")
         self.mode.pack(side="bottom", padx=10, pady=10)
 
-        self.btAdd = Button(self.mode, text="ADD", width=15, bg="#4D9EE0", state="normal", command=self.add)
+        self.btAdd = Button(self.mode, text="THÊM", width=15, bg="#4D9EE0", state="normal", command=self.add)
         self.btAdd.grid(row=0, column=0, padx=20, pady=10, ipady=4)
 
-        self.btUpd = Button(self.mode, text="UPDATE", width=15, bg="#4D9EE0", state="disabled", command=self.upd)
+        self.btUpd = Button(self.mode, text="CẬP NHẬT", width=15, bg="#4D9EE0", state="disabled", command=self.upd)
         self.btUpd.grid(row=0, column=1, padx=20, pady=10, ipady=4)
 
-        self.btDel = Button(self.mode, text="DELETE", width=15, bg="#4D9EE0", state="disabled", command=self.dele)
+        self.btDel = Button(self.mode, text="XÓA", width=15, bg="#4D9EE0", state="disabled", command=self.dele)
         self.btDel.grid(row=1, column=0, padx=20, pady=10, ipady=4)
 
-        self.btRef = Button(self.mode, text="Refresh", width=15, bg="#4D9EE0", state="normal", command=self.ref)
+        self.btRef = Button(self.mode, text="TẢI LẠI", width=15, bg="#4D9EE0", state="normal", command=self.ref)
         self.btRef.grid(row=1, column=1, padx=20, pady=10, ipady=4)
 
     def findByFace(self):
@@ -117,6 +125,11 @@ class CustomerGUI(Frame):
             self.btRecord.configure(state="normal")
         else:
             self.btRecord.configure(state="disabled")
+
+
+    def clear_placeholder(self, event):
+        if self.entry1.get() == "Nhập mã khách hàng":
+            self.entry1.delete(0, "end")
 
     def sinupFace(self):
         self.record = Record(self.TextFieldsForm[0].get())
@@ -163,6 +176,21 @@ class CustomerGUI(Frame):
         self.data = self.customerBLL.getData()
         for row in self.data:
             self.table.insert('', END, values = row)
+
+    def loadTableByID(self):
+        for item in self.table.get_children():
+            self.table.delete(item)
+        Cus_ID = self.entry1.get()
+        if Cus_ID.strip() != "":
+            self.data = self.customerBLL.finbyIDCustomer(Cus_ID)
+            if len(self.data) > 0:
+                for row in self.data:
+                    self.table.insert('', END, values = row)
+            else:
+                messagebox.showinfo("Thông báo", "Mã khách hàng không tồn tại")
+        else:
+            messagebox.showinfo("Thông báo", "Mã khách hàng không được để trống")
+
 
     def add(self):
         gender = True if self.cbbGender.get() == "Nam" else False
