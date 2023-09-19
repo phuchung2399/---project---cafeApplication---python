@@ -83,8 +83,8 @@ class HomeGUI(Frame):
         self.fram_cate = Frame(self.west, bg="#4D9EE0", width=280, height=650)
         self.fram_cate.place(x=10, y=100)
 
-        self.cate = Frame(self.fram_cate, bg="#ffffff", width=260, height=550)
-        self.cate.place(x=10, y=10)
+        self.cate = Frame(self.fram_cate, bg="#ffffff", width=260, height=545)
+        self.cate.place(x=10, y=50)
 
         self.panel = []
         self.panel.append(None)
@@ -266,3 +266,4 @@ class HomeGUI(Frame):
 
     def Logout_btn(self):
         self.__master.destroy()
+        login_frame = LoginFrame(self.master)

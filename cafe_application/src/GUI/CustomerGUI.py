@@ -41,6 +41,7 @@ class CustomerGUI(Frame):
         self.table.heading("6", text="DOSUP")
         self.data = self.customerBLL.getData()
         for row in self.data:
+            print(str(row))
             self.table.insert('', END, values = row)
         self.table.pack(fill=BOTH, expand=True)
 
@@ -116,10 +117,6 @@ class CustomerGUI(Frame):
         self.btRef = Button(self.mode, text="TẢI LẠI", width=15, bg="#4D9EE0", state="normal", command=self.ref)
         self.btRef.grid(row=1, column=1, padx=20, pady=10, ipady=4)
 
-    def findByFace(self):
-        thread = Thread(target=self.detection.findByFace(self.cbbGender, self.cbbMembership, self.btAdd, self.btUpd, self.btDel))
-        thread.start()
-
     def active(self, event):
         if event.widget.get() == "Có":
             self.btRecord.configure(state="normal")
@@ -185,6 +182,7 @@ class CustomerGUI(Frame):
             self.data = self.customerBLL.finbyIDCustomer(Cus_ID)
             if len(self.data) > 0:
                 for row in self.data:
+                    print(str(row))
                     self.table.insert('', END, values = row)
             else:
                 messagebox.showinfo("Thông báo", "Mã khách hàng không tồn tại")

@@ -1,4 +1,5 @@
 import os
+import shutil
 from tkinter import *
 from tkinter import filedialog, ttk
 
@@ -104,13 +105,33 @@ class ProductGUI(Frame):
 
 
     def selectImage(self):
-        self.initial_dir = os.path.expanduser('cafe_application\\img')
-        self.path = filedialog.askopenfilename(initialdir=self.initial_dir, filetypes=[("Image Files", "*.jpg;*.jpeg;*.png;*.bmp")]).split("/")[-1]
-        self.chosenImg = fr"cafe_application/img/{self.path}"
-        self.imgProduct.destroy()
-        self.img = ImageTk.PhotoImage(Image.open(self.chosenImg))
-        self.imgProduct = Label(self.showImage, image=self.img, bg="#FFFFFF")
-        self.imgProduct.pack()
+        # self.initial_dir = os.path.expanduser('cafe_application\\img')
+        # self.path = filedialog.askopenfilename(initialdir=self.initial_dir, filetypes=[("Image Files", "*.jpg;*.jpeg;*.png;*.bmp")]).split("/")[-1]
+        # self.chosenImg = fr"cafe_application/img/{self.path}"
+        # self.imgProduct.destroy()
+        # self.img = ImageTk.PhotoImage(Image.open(self.chosenImg))
+        # self.imgProduct = Label(self.showImage, image=self.img, bg="#FFFFFF")
+        # self.imgProduct.pack()
+        self.path = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg;*.jpeg;*.png;*.bmp")])
+
+        # Kiểm tra xem người dùng đã chọn một tệp hay chưa
+        if self.path:
+            # Tạo đối tượng hình ảnh từ tệp đã chọn
+            self.imgProduct.destroy()
+
+            self.img = Image.open(self.path)
+            self.img =  self.img.resize((300, 300))
+            self.photo = ImageTk.PhotoImage(self.img)
+            self.imgProduct = Label(self.showImage, image=self.photo, bg="#FFFFFF")
+            self.imgProduct.pack()
+
+            global selected_image_path
+            self.selected_image_path = self.path
+
+    def save_image(self):
+        # Kiểm tra xem đã chọn một tệp ảnh hay chưa
+        if self.selected_image_path:
+            shutil.copyfile(self.selected_image_path, self.destination_path)
 
     def showDetailsProduct(self, event):
         for row in self.table.selection():
@@ -156,8 +177,12 @@ class ProductGUI(Frame):
             self.table.insert('', END, values = row)
 
     def add(self):
-        self.newProduct = Product(self.TextFieldsForm[0].get(), self.TextFieldsForm[1].get(), self.cbbCategoryID.get(), self.cbbSized.get(), float(self.TextFieldsForm[2].get()), image = self.chosenImg, deleted = False)
+        self.destination_folder = 'cafe_application\\img\\products'
+        self.filename = self.TextFieldsForm[0].get() + '.jpg'
+        self.destination_path = os.path.join(self.destination_folder, self.filename)
+        self.newProduct = Product(self.TextFieldsForm[0].get(), self.TextFieldsForm[1].get(), self.cbbCategoryID.get(), self.cbbSized.get(), float(self.TextFieldsForm[2].get()), self.destination_path, deleted = False)
         self.productBLL.addProduct(self.newProduct)
+        self.save_image()
         self.ref()
 
     def upd(self):

@@ -230,6 +230,8 @@ class SaleGUI(Frame):
                 product = self.productBLL.findProductsBy({"PRODUCT_ID": self.TextFieldsBillDetails[i].get()})[0]
             else:
                 self.billDetailsBLL.addBillDetails(BillDetails(self.TextFieldsForm[0].get(), product.getProductID(), int(self.TextFieldsBillDetails[i].get())))
+                if i == (len(self.TextFieldsBillDetails) - 1):
+                    messagebox.showinfo("Message", "Bạn đã mua sản phẩm thành công!")
         self.ref()
 
     def dec(self):

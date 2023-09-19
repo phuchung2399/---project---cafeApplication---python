@@ -55,8 +55,8 @@ class CustomerBLL(Manager[Customer]):
     def searchCustomers(self, *conditions: str) -> List[Customer]:
         return self.__customerDAL.searchCustomers(*conditions)
 
-    def finbyIDCustomer(self, Custom_ID: str) -> List[Customer]:
-        return self.searchCustomers("DELETED = 0", "CUSTOMER_ID != 'CUS000'","CUSTOMER_ID = '"+Custom_ID+"'")
+    def finbyIDCustomer(self, Custom_ID: str) -> list[list[object]]:
+        return super().getData(self.searchCustomers("DELETED = 0", "CUSTOMER_ID != 'CUS000'","CUSTOMER_ID = '"+Custom_ID+"'"))
 
     def findCustomersBy(self, conditions: dict) -> list[Customer]:
         customers = self.__customerList
